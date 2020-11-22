@@ -1,0 +1,26 @@
+[
+  {
+    "name":"v1",
+    "degree": "1"
+  },
+  {
+    "name":"v2",
+    "degree": "2"
+  },
+  {
+    "name":"v3",
+    "degree": "2"
+  },
+  {
+    "name":"v4",
+    "degree": "2"
+  },
+  {
+    "name":"v5",
+    "degree": "2"
+  },
+  {
+    "name":"v6",
+    "degree": "1"
+  }
+]
