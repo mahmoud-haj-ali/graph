@@ -30,6 +30,8 @@
 .pub-cache/
 .pub/
 /build/
+/android/local.properties
+/android/gradle/wrapper/gradle-wrapper.properties
 
 # Web related
 lib/generated_plugin_registrant.dart
