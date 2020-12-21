@@ -13,6 +13,10 @@
       "name":"C",
       "degree": "4"
     },
+
+
+
+
     {
       "name":"D",
       "degree": "2"
@@ -35,67 +39,51 @@
     {
       "name":"e1",
       "start": "A",
-      "end": "B",
+      "end": "D",
+      "weight": "15"
+    },
+    {
+      "name":"e1",
+      "start": "A",
+      "end": "F",
       "weight": "15"
     },
     {
       "name":"e2",
-      "start": "B",
-      "end": "C",
+      "start": "A",
+      "end": "E",
       "weight": "15"
     },
     {
       "name":"e3",
-      "start": "C",
+      "start": "B",
+      "end": "E",
+      "weight": "15"
+    },
+    {
+      "name":"e3",
+      "start": "B",
       "end": "G",
       "weight": "15"
     },
     {
       "name":"e4",
-      "start": "G",
+      "start": "B",
       "end": "F",
       "weight": "15"
     },
+
+
     {
       "name":"e5",
-      "start": "E",
+      "start": "C",
       "end": "F",
       "weight": "15"
     },
     {
       "name":"e6",
-      "start": "E",
-      "end": "D",
-      "weight": "15"
-    },
-    {
-      "name":"e7",
-      "start": "A",
-      "end": "D",
-      "weight": "15"
-    },
-    {
-      "name":"e8",
-      "start": "A",
-      "end": "E",
-      "weight": "15"
-    },
-    {
-      "name":"e9",
-      "start": "B",
-      "end": "E",
-      "weight": "15"
-    },
-    {
-      "name":"e10",
       "start": "C",
-      "end": "E",
-      "weight": "15"
-    },
-    {
-      "name":"e11",
-      "start": "C",
-      "end": "F",
+      "end": "G",
       "weight": "15"
     }
   ]

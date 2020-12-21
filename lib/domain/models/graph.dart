@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:graph/models/vertex.dart';
+import 'package:graph/domain/models/vertex.dart';
 
 import 'Edge.dart';
 
