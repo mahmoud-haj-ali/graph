@@ -43,45 +43,43 @@
       "weight": "15"
     },
     {
-      "name":"e1",
+      "name":"e2",
       "start": "A",
       "end": "F",
       "weight": "15"
     },
     {
-      "name":"e2",
+      "name":"e3",
       "start": "A",
       "end": "E",
-      "weight": "15"
-    },
-    {
-      "name":"e3",
-      "start": "B",
-      "end": "E",
-      "weight": "15"
-    },
-    {
-      "name":"e3",
-      "start": "B",
-      "end": "G",
       "weight": "15"
     },
     {
       "name":"e4",
       "start": "B",
+      "end": "E",
+      "weight": "15"
+    },
+    {
+      "name":"e5",
+      "start": "B",
+      "end": "G",
+      "weight": "15"
+    },
+    {
+      "name":"e6",
+      "start": "B",
       "end": "F",
       "weight": "15"
     },
-
-
     {
-      "name":"e5",
+      "name":"e7",
       "start": "C",
       "end": "F",
       "weight": "15"
     },
     {
-      "name":"e6",
+      "name":"e8",
       "start": "C",
       "end": "G",
       "weight": "15"
