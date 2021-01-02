@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class Vertex {
   Vertex({
@@ -15,11 +14,12 @@ class Vertex {
 
   factory Vertex.fromJson(Map<String, dynamic> json) => Vertex(
     name: json["name"],
-    degree: json["degree"],
+    degree: json["degree"].toString(),
   );
 
   Map<String, dynamic> toJson() => {
     "name": name,
     "degree": degree,
   };
+
 }

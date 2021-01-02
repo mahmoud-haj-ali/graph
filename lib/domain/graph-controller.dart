@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:collection';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graph/domain/models/models.dart';
-import 'package:graph/services/dependency-injection.dart';
+import 'package:graph/repo/graph-repo.dart';
 
 class GraphController{
 
@@ -68,25 +70,6 @@ class GraphController{
 
     return children;
   }
-  List<Vertex> getChildren(Graph graph,Vertex currentParent){
-    List<Vertex> children=[];
-
-    graph.edges.forEach((edge) {
-      if(edge.start==currentParent.name) {
-        if(graph.vertices.any((element) => element.name == edge.end)) {
-          children.add(graph.vertices.singleWhere((element) => element.name == edge.end));
-        }
-      }
-      else if(edge.end==currentParent.name){
-        if(graph.vertices.any((element) => element.name == edge.start)) {
-          children.add(graph.vertices.singleWhere((element) => element.name == edge.start));
-        }
-      }
-    });
-
-
-    return children;
-  }
 
   applyColoring(){
     bfsColoringController.add(verticesTree);
@@ -107,7 +90,7 @@ class GraphController{
     verticesTree.forEach((v1) {
       verticesTree.forEach((v2) {
         if(v1.isRed == v2.isRed){
-          if(getChildren(graph, v1).any((element) => element.name==v2.name))
+          if(graph.getVertexChildren(v1).any((element) => element.name==v2.name))
           {
             isBipartite = false;
             isBipartiteController.add(isBipartite);
@@ -125,7 +108,7 @@ class GraphController{
     List<Edge> addableEdges = [];
     for(int i=0;i<verticesTree.length;i++){
       for(int j=i+1;j<verticesTree.length;j++){
-        if(!getChildren(graph, verticesTree[i]).any((element) => element.name==verticesTree[j].name))
+        if(!graph.getVertexChildren(verticesTree[i]).any((element) => element.name==verticesTree[j].name))
         {
           if(verticesTree[i].isRed != verticesTree[j].isRed)
             if(!graph.edges.any((element) => (element.start==verticesTree[i].name && element.end==verticesTree[j].name)||(element.end==verticesTree[i].name && element.start==verticesTree[j].name)))
@@ -138,8 +121,48 @@ class GraphController{
       }
     }
     addableEdgesController.add(addableEdges);
-    print(addableEdges);
     return addableEdges;
+  }
+
+  List<Edge> getVertexEdges(Graph graph,Vertex vertex){
+    List<Edge> edges = [];
+    graph.edges.forEach((element) {
+      if(element.start == vertex.name || element.end == vertex.name)
+        edges.add(element);
+    });
+    return edges;
+  }
+
+  Future<Graph> getGraphFromMemory(GraphRepo repo) async {
+    Graph graph;
+    try {
+      FilePickerResult result = await FilePicker.platform.pickFiles(type: FileType.custom);
+      if(result == null){
+        return graph;
+      } else if(result.paths.single.split('.').last != 'json') {
+        Fluttertoast.showToast(
+            msg: "The file is not json, pick another file",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.grey.shade600,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      } else {
+        graph = await repo.getGraphFromMemory(result.paths.single);
+      }
+    } catch (e) {
+      print(e);
+      Fluttertoast.showToast(
+          msg: "something went wrong, please try again later",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.grey.shade600,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+    }
+    return graph;
   }
 
   dispose(){

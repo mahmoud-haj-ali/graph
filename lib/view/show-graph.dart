@@ -29,20 +29,23 @@ class ShowGraph extends StatelessWidget {
           children: [
             SizedBox(height: 10,),
             ShowVertices(title:"Vertices",vertices: graph.vertices,isColored: false,),
-            Divider(color: Colors.orange,height: 25,indent: 25,endIndent: 25,),
+            Divider(color: Colors.orange,height: 25,indent: 15,endIndent: 15,),
             ShowEdges(title:"Edges",edges:graph.edges),
             SizedBox(height: 25,),
-            RaisedButton(
-              color: Colors.orange.shade400,
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: RaisedButton(
+                color: Colors.orange.shade400,
+                textColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                onPressed: () {
+                  graphController.applyBfs(graph);
+                  Navigator.push(context, CupertinoPageRoute(builder: (_)=> ShowBFS(graphController: graphController,graph: graph,)));
+                },
+                child: Center(child: Text("Apply BFS")),
               ),
-              onPressed: () {
-                graphController.applyBfs(graph);
-                Navigator.push(context, CupertinoPageRoute(builder: (_)=> ShowBFS(graphController: graphController,graph: graph,)));
-              },
-              child: Center(child: Text("Apply BFS")),
             ),
 
 

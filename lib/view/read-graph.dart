@@ -34,9 +34,9 @@ class _ReadGraphState extends State<ReadGraph> {
   @override
   void dispose() {
     graphController.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +53,7 @@ class _ReadGraphState extends State<ReadGraph> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: 200,
+              width: 230,
               child: RaisedButton(
                 color: Colors.orange.shade400,
                 textColor: Colors.white,
@@ -62,6 +62,9 @@ class _ReadGraphState extends State<ReadGraph> {
                 ),
                 onPressed: () async {
                   Graph graph= await repo.getGraph();
+                  graph.vertices.forEach((element) {
+                    element.degree = graphController.getVertexEdges(graph, element).length.toString();
+                  });
                   Navigator.push(context, CupertinoPageRoute(builder: (_)=>ShowGraph(graph: graph,)));
                 },
                 child: Text("Read Graph"),
@@ -69,7 +72,7 @@ class _ReadGraphState extends State<ReadGraph> {
             ),
             SizedBox(height: 15,),
             Container(
-              width: 200,
+              width: 230,
               child: RaisedButton(
                 color: Colors.orange.shade400,
                 textColor: Colors.white,
@@ -78,9 +81,34 @@ class _ReadGraphState extends State<ReadGraph> {
                 ),
                 onPressed: () async {
                   Graph graph= await repo.getBipartiteGraph();
+                  graph.vertices.forEach((element) {
+                    element.degree = graphController.getVertexEdges(graph, element).length.toString();
+                  });
                   Navigator.push(context, CupertinoPageRoute(builder: (_)=>ShowGraph(graph: graph,)));
                 },
                 child: Text("Read Bipartite Graph"),
+              ),
+            ),
+            SizedBox(height: 15,),
+            Container(
+              width: 230,
+              child: OutlineButton(
+                color: Colors.orange.shade400,
+                textColor: Colors.white,
+                borderSide: BorderSide(color: Colors.orange.shade400,width: 2),
+                highlightedBorderColor: Colors.orange.shade400,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+                onPressed: () async {
+                  Graph graph = await graphController.getGraphFromMemory(repo);
+                  if(graph != null)
+                    {
+                      graph.vertices.forEach((element) {
+                        element.degree = graphController.getVertexEdges(graph, element).length.toString();
+                      });
+                      Navigator.push(context, CupertinoPageRoute(builder: (_)=>ShowGraph(graph: graph,)));
+                    }
+                },
+                child: Text("Add your own graph.json"),
               ),
             ),
           ],
@@ -88,36 +116,6 @@ class _ReadGraphState extends State<ReadGraph> {
       ),
     );
   }
-
-
-  // Widget showGraph(Graph graph){
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.center,
-  //     children: [
-  //       SizedBox(height: 10,),
-  //       ShowVertices(title:"Vertices",vertices: graph.vertices,isColored: false,),
-  //       Divider(color: Colors.orange,height: 25,indent: 25,endIndent: 25,),
-  //       ShowEdges(title:"Edges",edges:graph.edges),
-  //       SizedBox(height: 25,),
-  //       RaisedButton(
-  //         color: Colors.orange.shade400,
-  //         textColor: Colors.white,
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(12.0),
-  //         ),
-  //         onPressed: () {
-  //           graphController.applyBfs(graph);
-  //           Navigator.push(context, CupertinoPageRoute(builder: (_)=> ShowBFS(graphController: graphController,graph: graph,)));
-  //         },
-  //         child: Center(child: Text("Apply BFS")),
-  //       ),
-  //
-  //
-  //
-  //     ],
-  //   );
-  // }
-
 
 
 }

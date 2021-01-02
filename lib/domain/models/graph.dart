@@ -34,6 +34,27 @@ class Graph {
     "vertices": List<dynamic>.from(vertices.map((x) => x.toJson())),
     "edges": List<dynamic>.from(edges.map((x) => x.toJson())),
   };
+
+  List<Vertex> getVertexChildren(Vertex parent){
+    List<Vertex> children=[];
+
+    edges.forEach((edge) {
+      if(edge.start==parent.name) {
+        if(vertices.any((element) => element.name == edge.end)) {
+          children.add(vertices.singleWhere((element) => element.name == edge.end));
+        }
+      }
+      else if(edge.end==parent.name){
+        if(vertices.any((element) => element.name == edge.start)) {
+          children.add(vertices.singleWhere((element) => element.name == edge.start));
+        }
+      }
+    });
+
+
+    return children;
+  }
+
 }
 
 
